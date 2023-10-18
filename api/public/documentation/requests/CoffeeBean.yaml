@@ -1,0 +1,23 @@
+openapi: 3.0.3
+info:
+  title: CoffeeBean Requests
+  version: 1.0.0
+servers:
+  - url: "http://localhost"
+    description: "Localhost"
+paths:
+  /coffee_beans:
+    get:
+      tags:
+        - "coffee_beans"
+      operationId: "getCoffeeBeans"
+      parameters:
+        - $ref: "../global.yaml#/components/parameters/PageQueryParam"
+        - $ref: "../global.yaml#/components/parameters/PerPageQueryParam"
+        - $ref: "../global.yaml#/components/parameters/DirectionQueryParam"
+        - $ref: "../responses/CoffeeBean.yaml#/components/parameters/CoffeeBeanOrderBy"
+      responses:
+        200:
+          $ref: "../responses/CoffeeBean.yaml#/components/responses/PaginatedCoffeeBeans"
+        401:
+          $ref: "../global.yaml#/components/responses/UnauthenticatedError"

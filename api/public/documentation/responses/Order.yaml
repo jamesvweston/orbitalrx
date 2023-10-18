@@ -1,0 +1,105 @@
+openapi: 3.0.3
+info:
+  title: Order
+  version: 1.0.0
+servers:
+  - url: "http://localhost"
+    description: "Localhost"
+paths: {}
+
+components:
+  parameters:
+    OrderOrderBy:
+      in: query
+      name: "order_by"
+      required: false
+      schema:
+        $ref: "#/components/schemas/OrderOrderBy"
+  responses:
+    PaginatedOrders:
+      description: "Successful operation"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/PaginatedOrders"
+    OrderResponse:
+      description: "Successful operation"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Order"
+  schemas:
+    OrderOrderBy:
+      type: string
+      enum:
+        - orders.id
+      default: orders.id
+    Order:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        truck:
+          $ref: "./Truck.yaml#/components/schemas/Truck"
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/OrderItem"
+        created_at:
+          type: string
+        updated_at:
+          type: string
+      required:
+        - id
+        - truck
+        - items
+        - created_at
+        - updated_at
+    OrderItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        order_id:
+          type: integer
+          format: int64
+
+        bean:
+          $ref: "./CoffeeBean.yaml#/components/schemas/CoffeeBean"
+        type:
+          $ref: "./CoffeeType.yaml#/components/schemas/CoffeeType"
+
+        created_at:
+          type: string
+        updated_at:
+          type: string
+      required:
+        - id
+        - order_id
+        - created_at
+        - updated_at
+        - bean
+        - type
+    PaginatedOrders:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Order"
+        current_page:
+          type: integer
+        from:
+          type: integer
+        to:
+          type: integer
+        total:
+          type: integer
+      required:
+        - data
+        - current_page
+        - from
+        - to
+        - total

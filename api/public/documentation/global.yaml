@@ -1,0 +1,87 @@
+openapi: 3.0.3
+info:
+  title: Global
+  version: 1.0.0
+servers:
+  - url: "http://localhost"
+    description: "Localhost"
+paths: {}
+components:
+  parameters:
+    PageQueryParam:
+      in: query
+      name: "page"
+      required: false
+      schema:
+        type: integer
+        format: int64
+        default: 20
+    PerPageQueryParam:
+      in: query
+      name: "per_page"
+      required: false
+      schema:
+        type: integer
+        format: int64
+        default: 1
+    DirectionQueryParam:
+      in: query
+      name: "direction"
+      required: false
+      schema:
+        $ref: "#/components/schemas/DirectionParam"
+  responses:
+    BadRequestError:
+      description: "BadRequest error"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/BadRequestError"
+    UnauthenticatedError:
+      description: "Unauthenticated error"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UnauthenticatedError"
+    ValidationError:
+      description: "Validation errors"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ValidationError"
+  schemas:
+    DirectionParam:
+      type: string
+      enum:
+        - asc
+        - desc
+      default: asc
+    BadRequestError:
+      type: object
+      properties:
+        message:
+          type: string
+      required:
+        - message
+    UnauthenticatedError:
+      type: object
+      properties:
+        message:
+          type: string
+          default: "Unauthenticated"
+      required:
+        - message
+    ValidationError:
+      type: object
+      properties:
+        message:
+          type: string
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+      required:
+        - message
+        - errors

@@ -1,0 +1,23 @@
+openapi: 3.0.3
+info:
+  title: Order Requests
+  version: 1.0.0
+servers:
+  - url: "http://localhost"
+    description: "Localhost"
+paths:
+  /orders:
+    get:
+      tags:
+        - "orders"
+      operationId: "getOrders"
+      parameters:
+        - $ref: "../global.yaml#/components/parameters/PageQueryParam"
+        - $ref: "../global.yaml#/components/parameters/PerPageQueryParam"
+        - $ref: "../global.yaml#/components/parameters/DirectionQueryParam"
+        - $ref: "../responses/Order.yaml#/components/parameters/OrderOrderBy"
+      responses:
+        200:
+          $ref: "../responses/Order.yaml#/components/responses/PaginatedOrders"
+        401:
+          $ref: "../global.yaml#/components/responses/UnauthenticatedError"

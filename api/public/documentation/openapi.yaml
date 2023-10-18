@@ -1,0 +1,21 @@
+openapi: 3.0.3
+info:
+  title: Title
+  version: 1.0.0
+servers:
+  - url: "http://localhost"
+    description: "Localhost"
+tags:
+  - name: "coffee_beans"
+  - name: "coffee_types"
+  - name: "orders"
+  - name: "trucks"
+paths:
+  /coffee_beans:
+    $ref: "./requests/CoffeeBean.yaml#/paths/~1coffee_beans"
+  /coffee_types:
+    $ref: "./requests/CoffeeType.yaml#/paths/~1coffee_types"
+  /orders:
+    $ref: "./requests/Order.yaml#/paths/~1orders"
+  /trucks:
+    $ref: "./requests/Truck.yaml#/paths/~1trucks"

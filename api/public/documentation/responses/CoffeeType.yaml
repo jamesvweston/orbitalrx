@@ -1,0 +1,69 @@
+openapi: 3.0.3
+info:
+  title: CoffeeType
+  version: 1.0.0
+servers:
+  - url: "http://localhost"
+    description: "Localhost"
+paths: {}
+
+components:
+  parameters:
+    CoffeeTypeOrderBy:
+      in: query
+      name: "order_by"
+      required: false
+      schema:
+        $ref: "#/components/schemas/CoffeeTypeOrderBy"
+  responses:
+    PaginatedCoffeeTypes:
+      description: "Successful operation"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/PaginatedCoffeeTypes"
+    CoffeeTypeResponse:
+      description: "Successful operation"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CoffeeType"
+  schemas:
+    CoffeeTypeOrderBy:
+      type: string
+      enum:
+        - coffee_types.id
+        - coffee_types.name
+      default: coffee_types.id
+    CoffeeType:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+      required:
+        - id
+        - name
+    PaginatedCoffeeTypes:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/CoffeeType"
+        current_page:
+          type: integer
+        from:
+          type: integer
+        to:
+          type: integer
+        total:
+          type: integer
+      required:
+        - data
+        - current_page
+        - from
+        - to
+        - total

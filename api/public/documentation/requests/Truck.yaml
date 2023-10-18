@@ -1,0 +1,23 @@
+openapi: 3.0.3
+info:
+  title: Truck Requests
+  version: 1.0.0
+servers:
+  - url: "http://localhost"
+    description: "Localhost"
+paths:
+  /trucks:
+    get:
+      tags:
+        - "trucks"
+      operationId: "getTrucks"
+      parameters:
+        - $ref: "../global.yaml#/components/parameters/PageQueryParam"
+        - $ref: "../global.yaml#/components/parameters/PerPageQueryParam"
+        - $ref: "../global.yaml#/components/parameters/DirectionQueryParam"
+        - $ref: "../responses/Truck.yaml#/components/parameters/TruckOrderBy"
+      responses:
+        200:
+          $ref: "../responses/Truck.yaml#/components/responses/PaginatedTrucks"
+        401:
+          $ref: "../global.yaml#/components/responses/UnauthenticatedError"

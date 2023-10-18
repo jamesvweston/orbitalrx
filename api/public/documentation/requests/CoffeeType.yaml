@@ -1,0 +1,23 @@
+openapi: 3.0.3
+info:
+  title: CoffeeType Requests
+  version: 1.0.0
+servers:
+  - url: "http://localhost"
+    description: "Localhost"
+paths:
+  /coffee_types:
+    get:
+      tags:
+        - "coffee_types"
+      operationId: "getCoffeeTypes"
+      parameters:
+        - $ref: "../global.yaml#/components/parameters/PageQueryParam"
+        - $ref: "../global.yaml#/components/parameters/PerPageQueryParam"
+        - $ref: "../global.yaml#/components/parameters/DirectionQueryParam"
+        - $ref: "../responses/CoffeeType.yaml#/components/parameters/CoffeeTypeOrderBy"
+      responses:
+        200:
+          $ref: "../responses/CoffeeType.yaml#/components/responses/PaginatedCoffeeTypes"
+        401:
+          $ref: "../global.yaml#/components/responses/UnauthenticatedError"

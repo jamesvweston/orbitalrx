@@ -1,0 +1,69 @@
+openapi: 3.0.3
+info:
+  title: CoffeeBean
+  version: 1.0.0
+servers:
+  - url: "http://localhost"
+    description: "Localhost"
+paths: {}
+
+components:
+  parameters:
+    CoffeeBeanOrderBy:
+      in: query
+      name: "order_by"
+      required: false
+      schema:
+        $ref: "#/components/schemas/CoffeeBeanOrderBy"
+  responses:
+    PaginatedCoffeeBeans:
+      description: "Successful operation"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/PaginatedCoffeeBeans"
+    CoffeeBeanResponse:
+      description: "Successful operation"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/CoffeeBean"
+  schemas:
+    CoffeeBeanOrderBy:
+      type: string
+      enum:
+        - coffee_beans.id
+        - coffee_beans.name
+      default: coffee_beans.id
+    CoffeeBean:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+      required:
+        - id
+        - name
+    PaginatedCoffeeBeans:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/CoffeeBean"
+        current_page:
+          type: integer
+        from:
+          type: integer
+        to:
+          type: integer
+        total:
+          type: integer
+      required:
+        - data
+        - current_page
+        - from
+        - to
+        - total
